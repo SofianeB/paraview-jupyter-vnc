@@ -35,7 +35,7 @@ RUN export DEBIAN_FRONTEND=noninteractive && apt-get update && \
     libopenmpi-dev \
     libtbb-dev \
     ninja-build \
-    QT5-default \
+    qt5-default \
     && apt-get remove -y gnome-screensaver  \
     && apt-get clean \
     && apt-get -y autoremove \
