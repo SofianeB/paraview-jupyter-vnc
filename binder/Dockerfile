@@ -4,6 +4,7 @@ FROM jupyter/base-notebook:python-3.9.12
 # Switch to root user
 USER root
 ENV DEBIAN_FRONTEND="noninteractive" TZ="Etc/UTC"
+ENV ParaView_Version="v5.10.1"
 
 # Install dependencies
 RUN export DEBIAN_FRONTEND=noninteractive && apt-get update && \
@@ -38,3 +39,13 @@ RUN export DEBIAN_FRONTEND=noninteractive && apt-get update && \
     && apt-get clean \
     && apt-get -y autoremove \
     && rm -rf /var/lib/apt/lists/*
+    
+# Install and Build ParaView
+RUN git clone https://gitlab.kitware.com/paraview/paraview.git && \
+    mkdir paraview_build && \ 
+    cd paraview && \
+    git checkout ${ParaView_version} && \
+    git submodule update --init --recursive && \
+    cd ../paraview_build && \
+    cmake -GNinja -DPARAVIEW_USE_PYTHON=ON -DPARAVIEW_USE_MPI=ON -DVTK_SMP_IMPLEMENTATION_TYPE=TBB -DCMAKE_BUILD_TYPE=Release ../paraview && \
+    ninja
