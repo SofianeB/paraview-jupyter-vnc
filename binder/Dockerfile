@@ -1,45 +1,40 @@
 
-FROM condaforge/miniforge3
-MAINTAINER Bane Sullivan "bane.sullivan@kitware.com"
-SHELL ["/bin/bash", "-c"]
+FROM jupyter/base-notebook:python-3.9.12
 
-ARG NB_USER=jovyan
-ARG NB_UID=1000
-ENV USER ${NB_USER}
-ENV NB_UID ${NB_UID}
-ENV HOME /home/${NB_USER}
+# Switch to root user
+USER root
+ENV DEBIAN_FRONTEND="noninteractive" TZ="Etc/UTC"
 
-RUN adduser --disabled-password \
-    --gecos "Default user" \
-    --uid ${NB_UID} \
-    ${NB_USER}
-
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends libgl1-mesa-dev xvfb tini && \
-    rm -rf /var/lib/apt/lists/*
-
-RUN conda install --yes -c conda-forge \
-    python=3.7 \
-    'nodejs>=12.0.0' \
-    'jupyterlab>=3' \
-    ipywidgets \
-    'ipycanvas>=0.5.0' \
-    'ipyevents>=0.8.0' \
-    pillow \
-    matplotlib \
-    scipy \
-    paraview=5.8.0
-# NOTE ParaView bundles it's own VTK
-
-WORKDIR $HOME
-COPY . ./ipyvtklink/
-WORKDIR $HOME/ipyvtklink
-
-RUN pip install .
-
-COPY start.sh /sbin/start_xvfb.sh
-RUN chmod a+x /sbin/start_xvfb.sh
-
-ENTRYPOINT ["tini", "-g", "--", "start_xvfb.sh"]
-# CMD ["/bin/bash"]
-CMD ["jupyter", "lab", "--port=8878", "--no-browser", "--ip=0.0.0.0", "--allow-root"]
+# Install dependencies
+RUN export DEBIAN_FRONTEND=noninteractive && apt-get update && \
+    apt-get install --no-install-recommends -y \
+    dbus-x11 \
+    firefox \
+    xfce4 \
+    xfce4-panel \
+    xfce4-session \
+    xfce4-settings \
+    xorg \
+    xubuntu-icon-theme \
+    curl \
+    xscreensaver \
+    git \
+    cmake \
+    build-essential \
+    libgl1-mesa-dev \
+    libxt-dev \
+    qt5-default \
+    libqt5x11extras5-dev \
+    libqt5help5 \
+    qttools5-dev \
+    qtxmlpatterns5-dev-tools \
+    libqt5svg5-dev \
+    python3-dev \
+    python3-numpy \
+    libopenmpi-dev \
+    libtbb-dev \
+    ninja-build \
+    && apt-get remove -y gnome-screensaver  \
+    && apt-get clean \
+    && apt-get -y autoremove \
+    && rm -rf /var/lib/apt/lists/*
