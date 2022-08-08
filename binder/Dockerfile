@@ -35,7 +35,6 @@ RUN export DEBIAN_FRONTEND=noninteractive && apt-get update && \
     libopenmpi-dev \
     libtbb-dev \
     ninja-build \
-    qt5-default \
     && apt-get remove -y gnome-screensaver  \
     && apt-get clean \
     && apt-get -y autoremove \
@@ -50,5 +49,5 @@ RUN git clone https://gitlab.kitware.com/paraview/paraview.git && \
     git checkout ${ParaView_version} && \
     git submodule update --init --recursive && \
     cd ../paraview_build && \
-    cmake -GNinja -DPARAVIEW_USE_PYTHON=ON -DPARAVIEW_USE_MPI=ON -DVTK_SMP_IMPLEMENTATION_TYPE=TBB -DCMAKE_BUILD_TYPE=Release ../paraview && \
+    cmake -GNinja -DCMAKE_PREFIX_PATH=$QT_DIR/lib/cmake -DPARAVIEW_USE_PYTHON=ON -DPARAVIEW_USE_MPI=ON -DVTK_SMP_IMPLEMENTATION_TYPE=TBB -DCMAKE_BUILD_TYPE=Release ../paraview && \
     ninja
