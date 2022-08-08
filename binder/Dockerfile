@@ -52,4 +52,10 @@ WORKDIR /
    # cmake -GNinja -DCMAKE_PREFIX_PATH=$QT_DIR/lib/cmake -DPARAVIEW_USE_PYTHON=ON -DPARAVIEW_USE_MPI=ON -DVTK_SMP_IMPLEMENTATION_TYPE=TBB -DCMAKE_BUILD_TYPE=Release ../paraview && \
    # ninja
 
-RUN wget https://www.paraview.org/paraview-downloads/download.php?submit=Download&version=v5.10&type=binary&os=Linux&downloadFile=ParaView-5.10.1-MPI-Linux-Python3.9-x86_64.tar.gz
+#RUN wget https://www.paraview.org/paraview-downloads/download.php?submit=Download&version=v5.10&type=binary&os=Linux&downloadFile=ParaView-5.10.1-MPI-Linux-Python3.9-x86_64.tar.gz
+
+RUN git clone https://github.com/spack/spack ~ / .spack / Spack
+
+RUN ... ~ /.spack /Spack /share/spack/setup-env.sh
+
+RUN echo '. ~/.spack/Spack/share/spack/setup-env.sh' >> ~/.bash_profile
