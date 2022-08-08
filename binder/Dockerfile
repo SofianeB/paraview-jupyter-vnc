@@ -43,11 +43,13 @@ RUN export DEBIAN_FRONTEND=noninteractive && apt-get update && \
 WORKDIR /
 
 # Install and Build ParaView
-RUN git clone https://gitlab.kitware.com/paraview/paraview.git && \
-    mkdir paraview_build && \ 
-    cd paraview && \
-    git checkout ${ParaView_version} && \
-    git submodule update --init --recursive && \
-    cd ../paraview_build && \
-    cmake -GNinja -DCMAKE_PREFIX_PATH=$QT_DIR/lib/cmake -DPARAVIEW_USE_PYTHON=ON -DPARAVIEW_USE_MPI=ON -DVTK_SMP_IMPLEMENTATION_TYPE=TBB -DCMAKE_BUILD_TYPE=Release ../paraview && \
-    ninja
+#RUN git clone https://gitlab.kitware.com/paraview/paraview.git && \
+ #   mkdir paraview_build && \ 
+  #  cd paraview && \
+   # git checkout ${ParaView_version} && \
+   # git submodule update --init --recursive && \
+   # cd ../paraview_build && \
+   # cmake -GNinja -DCMAKE_PREFIX_PATH=$QT_DIR/lib/cmake -DPARAVIEW_USE_PYTHON=ON -DPARAVIEW_USE_MPI=ON -DVTK_SMP_IMPLEMENTATION_TYPE=TBB -DCMAKE_BUILD_TYPE=Release ../paraview && \
+   # ninja
+
+RUN wget https://www.paraview.org/paraview-downloads/download.php?submit=Download&version=v5.10&type=binary&os=Linux&downloadFile=ParaView-5.10.1-MPI-Linux-Python3.9-x86_64.tar.gz
