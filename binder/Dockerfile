@@ -35,11 +35,14 @@ RUN export DEBIAN_FRONTEND=noninteractive && apt-get update && \
     libopenmpi-dev \
     libtbb-dev \
     ninja-build \
+    QT5-default \
     && apt-get remove -y gnome-screensaver  \
     && apt-get clean \
     && apt-get -y autoremove \
     && rm -rf /var/lib/apt/lists/*
-    
+
+WORKDIR /
+
 # Install and Build ParaView
 RUN git clone https://gitlab.kitware.com/paraview/paraview.git && \
     mkdir paraview_build && \ 
