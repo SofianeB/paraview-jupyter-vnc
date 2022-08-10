@@ -32,8 +32,8 @@ WORKDIR /
 
 
 # Install tigervnc to /usr/local
-#RUN curl -sSfL 'https://sourceforge.net/projects/tigervnc/files/stable/1.10.1/tigervnc-1.10.1.x86_64.tar.gz/download' \
-#    | tar -zxf - -C /usr/local --strip=2
+RUN curl -sSfL 'https://sourceforge.net/projects/tigervnc/files/stable/1.10.1/tigervnc-1.10.1.x86_64.tar.gz/download' \
+    | tar -zxf - -C /usr/local --strip=2
 
 # Remove light-locker to prevent screen lock
 ARG TURBOVNC_VERSION=2.2.6
@@ -63,6 +63,8 @@ USER $NB_USER
 
 # Get websockify
 RUN conda install -y -q websockify=0.9.0
+
+RUN python -m pip install git+https://github.com/SofianeB/jupyter-remote-desktop-proxy.git
 
 # Set environment variable for python package jupyter-matlab-vnc-proxy
 ENV NOVNC_PATH=${NOVNC_PATH}
