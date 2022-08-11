@@ -43,6 +43,11 @@ ENV LIBGL_ALWAYS_INDIRECT=y
 
 ENV LIBGL_DEBUG_PLUGINS=y
 
+WORKDIR /tmp
+RUN curl -L -o virtualgl_2.5.2_amd64.deb 'https://downloads.sourceforge.net/project/virtualgl/2.5.2/virtualgl_2.5.2_amd64.deb?r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Fvirtualgl%2Ffiles%2F2.5.2&ts=1509495317&use_mirror=auto'
+RUN dpkg -i virtualgl_2.5.2_amd64.deb
+RUN printf "1\nn\nn\nn\nx\n" | /opt/VirtualGL/bin/vglserver_config
+
 USER $NB_USER
 RUN cd /opt/install && \
    conda env update -n base --file environment.yml
