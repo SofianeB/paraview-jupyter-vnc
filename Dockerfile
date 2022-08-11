@@ -47,3 +47,4 @@ USER $NB_USER
 RUN cd /opt/install && \
    conda env update -n base --file environment.yml
 
+WORKDIR $HOME/$NB_USER
