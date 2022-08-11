@@ -1,6 +1,5 @@
 FROM jupyter/base-notebook:python-3.9.12
 
-
 USER root
 
 RUN apt-get -y update \
@@ -32,6 +31,10 @@ RUN chown -R $NB_UID:$NB_GID $HOME
 ADD . /opt/install
 RUN fix-permissions /opt/install
 
+USER $NB_USER
+RUN cd /opt/install && \
+   conda env update -n base --file environment.yml
+
 # Install paraview
 WORKDIR /opt
 
@@ -46,6 +49,3 @@ ENV LIBGL_ALWAYS_INDIRECT=y
 
 ENV LIBGL_DEBUG_PLUGINS=y
 
-USER $NB_USER
-RUN cd /opt/install && \
-   conda env update -n base --file environment.yml
