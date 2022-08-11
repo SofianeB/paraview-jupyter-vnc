@@ -48,6 +48,8 @@ RUN curl -L -o virtualgl_2.5.2_amd64.deb 'https://downloads.sourceforge.net/proj
 RUN dpkg -i virtualgl_2.5.2_amd64.deb
 RUN printf "1\nn\nn\nn\nx\n" | /opt/VirtualGL/bin/vglserver_config
 
+RUN chown -R $NB_UID:$NB_GID /opt/install/resources
+
 USER $NB_USER
 RUN cd /opt/install && \
    conda env update -n base --file environment.yml
