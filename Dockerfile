@@ -52,4 +52,10 @@ USER $NB_USER
 RUN cd /opt/install && \
    conda env update -n base --file environment.yml
 
+RUN mkdir -p ${HOME}/.local/share/applications ${HOME}/Desktop ${HOME}/.local/share/ ${HOME}/.icons \
+    && cp resources/PARAVIEW.desktop ${HOME}/Desktop/ \
+    && cp resources/PARAVIEW.desktop ${HOME}/.local/share/applications\
+    && ln -s resources/paraview.png ${HOME}/.icons/paraview.png \
+    && cp resources/paraview_launcher.py ${HOME}/.local/share/ 
+
 WORKDIR $HOME/$NB_USER
