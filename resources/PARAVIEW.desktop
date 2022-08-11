@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=PARAVIEW
+Exec=bash -c "python $HOME/.local/share/paraview_launcher.py"
+Icon=paraview_icon.png
+Terminal=false
+StartupNotify=true
+Categories=Development
