@@ -12,6 +12,7 @@ RUN apt-get -y update \
    xfce4-settings \
    xorg \
    curl \
+   git \
    xubuntu-icon-theme
 
 # Remove light-locker to prevent screen lock
