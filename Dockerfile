@@ -62,3 +62,4 @@ RUN mkdir -p ${HOME}/.local/share/applications ${HOME}/Desktop ${HOME}/.local/sh
     && ln -s ${RESOURCES}/paraview.png ${HOME}/.icons/paraview.png \
     && cp ${RESOURCES}/paraview_launcher.py ${HOME}/.local/share/ 
 
+WORKDIR /
