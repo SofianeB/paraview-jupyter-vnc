@@ -4,5 +4,7 @@ dependencies:
   - jupyter-server-proxy>=1.4
   - pip
   - websockify
+  - paraview
   - pip:
       - git+https://github.com/SofianeB/jupyter-remote-desktop-proxy.git
+      - git+https://github.com/Kitware/ipyparaview.git
